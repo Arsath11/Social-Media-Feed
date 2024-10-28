@@ -66,9 +66,9 @@ const SidebarNav = () => {
             </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
-      </Sidebar>
+      </Sidebar>  
     </div>
   );
-};
+};  
 
 export default SidebarNav;

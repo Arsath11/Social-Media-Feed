@@ -84,6 +84,9 @@ const Login = () => {
             Don't have an account ?{" "}
             <span className="text-blue-600 cursor-pointer">
               <Link to="/register">Sign Up now</Link>
+  
+
+
             </span>
           </h6>
         </div>
