@@ -3,7 +3,8 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
-import SidebarNav from "./components/SidebarNav";
+
+import AddProducts from "./components/AddProducts";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Route path="/register" element={<Register />}>
     
       </Route>
-      <Route path="/addProducts" element={<SidebarNav />}>
+      <Route path="/addProducts" element={<AddProducts />}>
     
       </Route>
     </Routes>
