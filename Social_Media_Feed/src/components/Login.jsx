@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Button, Card, Checkbox, Label, TextInput } from "flowbite-react";
 import socialMediaIcons from "../assets/socialmedia.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../database/firebase";
+import { TableNames } from "./TableNames";
+import { toast, ToastContainer } from "react-toastify";
 
-const Login = () => {
+const Login = ({ setLoginStatus }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
   const [text, setText] = useState("password");
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -20,10 +24,41 @@ const Login = () => {
       [name]: value,
     });
   };
+  const [list, setList] = useState([]);
+  const getDatas = async () => {
+    const docRef = collection(db, TableNames.PROPERTY);
+    const datas = await getDocs(docRef);
+    const querySnapShot = datas?.docs?.map((datas) => ({
+      ...datas.data(),
+      id: datas?.id,
+    }));
+    setList(querySnapShot);
+  };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    getDatas();
+  }, []);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data, "datas");
+    const filteredData = query(
+      collection(db, TableNames.USERS),
+      where("email", "==", data?.email),
+      where("password", "==", data?.password)
+    );
+    const getDatas = await getDocs(filteredData);
+    const querySnapShot = getDatas?.docs?.map((datas) => ({
+      ...datas.data(),
+      id: datas?.id,
+    }));
+    if (querySnapShot?.length > 0) {
+      toast.success("Login Successfully");
+      setLoginStatus("true");
+      setTimeout(() => {
+        navigate("/view-property");
+      }, 1500);
+    } else {
+      return toast.error("Email and Password Not Matched");
+    }
   };
   return (
     <div
@@ -34,6 +69,7 @@ const Login = () => {
         backgroundSize: "cover",
       }}
     >
+      <ToastContainer />
       <Card className=" m-2  w-96">
         <h5 className="text-center text-[15px] font-bold">
           Sign in to Social Media Feed
@@ -82,11 +118,9 @@ const Login = () => {
         <div className="flex justify-end">
           <h6>
             Don't have an account ?{" "}
+            
             <span className="text-blue-600 cursor-pointer">
               <Link to="/register">Sign Up now</Link>
-  
-
-
             </span>
           </h6>
         </div>
