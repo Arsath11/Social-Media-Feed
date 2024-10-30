@@ -118,6 +118,7 @@ const ViewPropertyContent = () => {
       // Update local state
       setLikes(newLikes);
       setLikedBy(newLikedBy);
+      toast.success("Liked Successfully")
     }
   };
 
@@ -139,6 +140,7 @@ const ViewPropertyContent = () => {
       // Update local state
       setLikes(newLikes);
       setLikedBy(newLikedBy);
+      toast.success("Unliked Successfully")
     }
   };
   return (

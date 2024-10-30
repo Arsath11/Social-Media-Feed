@@ -62,7 +62,7 @@ const ViewProperty = () => {
             for="userName"
             class="block mb-2 font-bold text-lg text-gray-900 dark:text-white"
           >
-            Search
+            Filter by Minimum Likes:
           </label>
           <div className="flex lg:flex-row flex-col lg:justify-start justify-center items-center lg:items-start gap-3">
             <input
@@ -70,7 +70,7 @@ const ViewProperty = () => {
               id="userName"
               onChange={(e) => setFilterData(e.target.value)}
               class="bg-gray-50 border border-gray-300 lg:w-60 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Please Enter User Name"
+              placeholder="Please Enter Number"
               name="userName"
               required
               value={filterData}
